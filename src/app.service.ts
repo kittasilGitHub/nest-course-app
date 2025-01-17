@@ -24,5 +24,5 @@ export class AppService {
       lastname: 'silanon2',
       age: 40,
     };
-  }  
+  }
 }
