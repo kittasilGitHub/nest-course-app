@@ -16,6 +16,7 @@ export class AppService {
       name: 'kittasil',
       lastname: 'silanon',
       age: 39,
+      version : process.env.API_VERSION,
     };
   }
   getJson2() {
