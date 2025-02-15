@@ -25,9 +25,14 @@ export class CustomerController {
     return this.customerService.findAll();
   }
 
-  @Get(':id')
+  @Get(':id') // localhost:3000/customer/id
   findOne(@Param('id') id: string) {
     return this.customerService.findOne(+id);
+  }
+
+  @Get('/findone2/:fullname') // localhost:3000/customer/findone2/fullname
+  findOne2(@Param('fullname') fullname: string) {
+    return this.customerService.findOne2(fullname);
   }
 
   @Patch(':id')

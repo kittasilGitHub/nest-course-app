@@ -23,6 +23,15 @@ export class CustomerService {
     return await this.customerModel.findByPk(id);
   }
 
+  async findOne2(fullname: string) {
+    console.log(fullname);
+    return await this.customerModel.findOne({
+      where: {
+        fullname: fullname,
+      },
+    });
+  }
+
   update(id: number, updateCustomerDto: UpdateCustomerDto) {
     return `This action updates a #${id} customer`;
   }
