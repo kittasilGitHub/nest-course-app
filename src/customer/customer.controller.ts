@@ -11,7 +11,7 @@ import { CustomerService } from './customer.service';
 import { CreateCustomerDto } from './dto/create-customer.dto';
 import { UpdateCustomerDto } from './dto/update-customer.dto';
 
-@Controller('customer')
+@Controller('customer') // localhost:3000/customer
 export class CustomerController {
   constructor(private readonly customerService: CustomerService) {}
 
@@ -30,9 +30,9 @@ export class CustomerController {
     return this.customerService.findOne(+id);
   }
 
-  @Get('/findone2/:fullname') // localhost:3000/customer/findone2/fullname
-  findOne2(@Param('fullname') fullname: string) {
-    return this.customerService.findOne2(fullname);
+  @Get('/findonebyfullname/:fullname') // localhost:3000/customer/findonebyfullname/fullname
+  findOnebyFullname(@Param('fullname') fullname: string) {
+    return this.customerService.findOnebyFullname(fullname);
   }
 
   @Patch(':id')

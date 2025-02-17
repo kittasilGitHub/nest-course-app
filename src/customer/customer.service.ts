@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { CreateCustomerDto } from './dto/create-customer.dto';
 import { UpdateCustomerDto } from './dto/update-customer.dto';
 import { Customer } from './entities/customer.entity';
@@ -11,20 +11,40 @@ export class CustomerService {
     private readonly customerModel: typeof Customer,
   ) {}
 
-  create(createCustomerDto: CreateCustomerDto) {
-    return 'This action adds a new customer';
+  async create(createCustomerDto: CreateCustomerDto) {
+    const customer = await this.customerModel.create(
+      createCustomerDto as Partial<Customer>,
+    );
+    return {
+      data: customer,
+      message: 'Create complete',
+    };
+    
+    // return await this.customerModel.create(
+    //   createCustomerDto as Partial<Customer>,
+    // );
   }
 
   async findAll() {
-    return await this.customerModel.findAll();
+    // findALL() from first to last
+    // return await this.customerModel.findAll();
+
+    //findALL() from last to first
+    return await this.customerModel.findAll({
+      order: [['id', 'desc']],
+    });
   }
 
   async findOne(id: number) {
-    return await this.customerModel.findByPk(id);
+    const customer = await this.customerModel.findByPk(id);
+    if (customer == null) {
+      // show error message
+      throw new NotFoundException('Not Found Data!!!');
+    }
+    return customer;
   }
 
-  async findOne2(fullname: string) {
-    console.log(fullname);
+  async findOnebyFullname(fullname: string) {
     return await this.customerModel.findOne({
       where: {
         fullname: fullname,
