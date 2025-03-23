@@ -10,6 +10,8 @@ import { ConfigModule } from '@nestjs/config';
 import { SequelizeModule } from '@nestjs/sequelize';
 import { Dialect } from 'sequelize';
 import { Customer } from './customer/entities/customer.entity';
+import { AuthModule } from './auth/auth.module';
+import { AuthUser } from './auth/entities/auth.entity';
 
 @Module({
   imports: [
@@ -21,7 +23,7 @@ import { Customer } from './customer/entities/customer.entity';
       username : process.env.DB_USER,
       password : process.env.DB_PASSWORD,
       database : process.env.DB_DATABASE,
-      models : [Customer],
+      models : [Customer,AuthUser],
       autoLoadModels: true,
       sync: {alter: true},
     }),
@@ -29,6 +31,7 @@ import { Customer } from './customer/entities/customer.entity';
     UtilityModule,
     GlobalHelperModule,
     CustomerModule,
+    AuthModule,
   ],
   controllers: [AppController],
   providers: [AppService],
